@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a0d12">
+<title>FOM Daily Schedule — Study Tracker</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0d12;--card:#151b24;--card2:#111720;--border:#232c3a;--muted:#8b96a8;--text:#e7ebf2;--white:#f5f7fb;--amber:#f5b544;--teal:#4fd1c5;--blue:#60a5fa;--purple:#a78bfa;--pink:#fb7185;--indigo:#818cf8;--green:#34d399;--yellow:#fbbf24;--red:#f87171;--radius:12px;--shadow:0 12px 32px #0003;--mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;--sans:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 var(--sans);min-height:100vh}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:2px solid var(--amber);outline-offset:2px}.app{min-height:100vh}.sidebar{position:fixed;inset:0 auto 0 0;width:236px;padding:24px 14px;background:#0d1118;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:5}.brand{display:flex;gap:12px;align-items:center;padding:0 10px 24px}.brand-mark{width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,#f5b544,#d48b22);color:#17130a;display:grid;place-items:center;font-weight:850;font-size:13px;box-shadow:0 5px 22px #f5b54433}.brand strong{font-size:13px;letter-spacing:.02em;display:block}.brand small{color:var(--muted);font-size:11px}.nav-label{padding:10px 12px 7px;color:#667184;font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}.nav{display:grid;gap:4px}.nav a{height:40px;padding:0 12px;border-radius:8px;display:flex;align-items:center;gap:12px;color:#a8b1bf;font-size:13px;transition:background .18s,color .18s}.nav a:hover{background:#ffffff09;color:var(--white)}.nav a.active{background:#f5b54414;color:var(--amber);font-weight:650}.nav-icon{width:17px;text-align:center;font-size:15px}.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding:16px 10px 4px;color:var(--muted);font-size:11px}.sidebar-bottom b{color:#cbd2de;font-weight:600}.main{margin-left:236px;min-height:100vh}.topbar{height:64px;position:sticky;top:0;z-index:4;background:#0a0d12e8;backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 max(28px,calc((100vw - 236px - 1200px)/2)) 0 32px}.top-left,.top-right{display:flex;align-items:center;gap:12px}.date-context{font-weight:600;color:#d9dee7}.live-time{font:12px var(--mono);color:var(--muted);padding-left:12px;border-left:1px solid var(--border)}.mode-label{font-size:11px;color:var(--muted)}.mode-pill{display:flex;padding:3px;border:1px solid var(--border);border-radius:9px;background:#111720;gap:2px}.mode-pill button{border:0;background:transparent;color:var(--muted);font-size:11px;border-radius:6px;padding:6px 9px;transition:all .18s}.mode-pill button:hover{color:var(--text);background:#ffffff09}.mode-pill button.selected{background:#26303c;color:var(--white)}.mode-pill button[data-mode="Green"].selected{color:var(--green)}.mode-pill button[data-mode="Lite"].selected{color:var(--teal)}.mode-pill button[data-mode="Yellow"].selected{color:var(--yellow)}.mode-pill button[data-mode="Red"].selected{color:var(--red)}.content{max-width:1264px;margin:0 auto;padding:30px 32px 64px}.page-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:24px}.eyebrow{font:10px var(--mono);color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}.page-head h1{font-size:25px;line-height:1.2;letter-spacing:-.04em;margin:0;color:var(--white)}.page-head p{margin:7px 0 0;color:var(--muted);font-size:13px}.head-actions{display:flex;gap:9px;align-items:center}.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 4px 16px #00000014}.card-pad{padding:18px}.grid{display:grid;gap:14px}.stats-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:16px}.stat{padding:16px 18px;min-height:113px;position:relative;overflow:hidden}.stat:after{content:"";position:absolute;width:72px;height:72px;border-radius:50%;right:-25px;top:-28px;background:var(--glow,#f5b54414);filter:blur(1px)}.stat-label{font-size:11px;color:var(--muted);font-weight:550}.stat-value{margin-top:13px;font-size:24px;font-weight:700;letter-spacing:-.04em;color:var(--white)}.stat-sub{font-size:11px;color:var(--muted);margin-top:1px}.stat-value .unit{font-size:12px;font-weight:500;letter-spacing:0;color:var(--muted)}.today-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(270px,.9fr);gap:16px}.section-title{font-size:14px;font-weight:650;color:var(--white);letter-spacing:-.015em}.section-sub{font-size:11px;color:var(--muted);margin-top:3px}.card-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:17px 18px 13px}.now-card{padding:18px;margin-bottom:16px;background:linear-gradient(120deg,#171e29,#151b24 70%);position:relative;overflow:hidden}.now-card:before{content:"";position:absolute;inset:0 auto 0 0;width:3px;background:var(--now-color,var(--amber))}.now-top{display:flex;justify-content:space-between;gap:18px;align-items:flex-start}.now-title{display:flex;align-items:center;gap:9px}.live-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 12px #34d39988;animation:pulse 1.8s infinite}.now-title h2{font-size:14px;margin:0;font-weight:650}.block-tag{font-size:10px;color:var(--muted);font-family:var(--mono)}.now-block{font-size:21px;font-weight:700;margin:14px 0 0;color:var(--white);letter-spacing:-.035em}.now-time{font:12px var(--mono);color:var(--muted);margin-top:2px}.now-remain{font:12px var(--mono);color:var(--amber);white-space:nowrap}.progress-track{height:5px;border-radius:9px;background:#252e3b;overflow:hidden;margin-top:16px}.progress-fill{height:100%;border-radius:9px;background:var(--now-color,var(--amber));transition:width .25s}.now-next{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border);margin-top:17px;padding-top:13px;gap:14px}.next-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.next-name{font-size:12px;font-weight:600;margin-top:3px}.next-time{font:10px var(--mono);color:var(--muted)}.timeline-card{overflow:hidden}.timeline-list{padding:4px 16px 12px}.timeline-row{position:relative;display:grid;grid-template-columns:92px 14px minmax(0,1fr) auto;align-items:center;gap:9px;min-height:44px;cursor:pointer;padding:4px 3px;border-radius:7px;transition:background .16s}.timeline-row:hover{background:#ffffff07}.timeline-time{font:10px var(--mono);color:#8994a5}.timeline-rail{align-self:stretch;position:relative;display:flex;justify-content:center}.timeline-rail:before{content:"";position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--rail,#697386);opacity:.75}.timeline-row:first-child .timeline-rail:before{top:50%}.timeline-row:last-child .timeline-rail:before{bottom:50%}.timeline-dot{width:8px;height:8px;border-radius:50%;background:var(--rail,#697386);z-index:1;align-self:center;box-shadow:0 0 0 3px var(--card)}.timeline-row.active .timeline-dot{box-shadow:0 0 0 4px color-mix(in srgb,var(--rail) 25%,transparent),0 0 12px var(--rail)}.timeline-name{font-size:12px;font-weight:550;color:#d5dbe5}.timeline-row:not(.study) .timeline-name{color:#9ba5b4}.timeline-meta{display:flex;align-items:center;gap:8px}.duration{font:10px var(--mono);color:#727e90}.chip{padding:2px 6px;border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.04em}.chip.hit{background:#34d3991c;color:var(--green)}.chip.miss{background:#f871711a;color:var(--red)}.chip.active-chip{background:#f5b5441c;color:var(--amber)}.block-detail{grid-column:3/5;margin:2px 0 8px;padding:13px;background:#10161e;border:1px solid #293342;border-radius:9px;cursor:default;animation:open .18s ease-out}.detail-form{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:grid;gap:5px;min-width:0}.field label,.field-label{font-size:10px;color:var(--muted);font-weight:600}.field input,.field select,.field textarea,.input{width:100%;background:#0d131b;border:1px solid #2a3442;border-radius:7px;padding:8px 10px;font-size:12px;min-height:35px;transition:border .16s,background .16s}.field textarea{min-height:64px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus,.input:focus{border-color:#596a80;background:#101822;outline:none}.detail-actions{display:flex;gap:7px;align-items:center;justify-content:flex-end;grid-column:1/-1}.toggle-btn,.btn{border:1px solid var(--border);background:#1b2430;border-radius:7px;padding:7px 11px;font-size:11px;font-weight:600;transition:all .16s}.btn:hover,.toggle-btn:hover{background:#263241;border-color:#3a4657}.btn.primary{background:#f5b544;color:#17130a;border-color:#f5b544}.btn.primary:hover{background:#ffc95f}.btn.ghost{background:transparent}.btn.danger{color:var(--red);border-color:#63343b}.btn.small{padding:5px 8px;font-size:10px}.toggle-btn.on{border-color:#34d39966;background:#34d39918;color:var(--green)}.toggle-btn.off{border-color:#f8717166;background:#f8717115;color:var(--red)}.side-stack{display:grid;align-content:start;gap:14px}.side-card{padding:17px}.side-card-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:14px}.mini-badge{border:1px solid var(--border);border-radius:6px;padding:3px 7px;color:var(--muted);font:10px var(--mono)}.tally-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.tally-cell{padding:9px 7px;border-radius:8px;background:#10161e;text-align:center}.tally-cell label{font-size:9px;color:var(--muted);display:block}.tally-cell input{width:100%;background:transparent;border:0;text-align:center;font:17px var(--mono);padding:3px 0 0;outline:none}.balance{margin-top:11px;padding:8px 9px;border-radius:7px;font-size:10px;display:flex;justify-content:space-between;align-items:center}.balance.good{background:#34d39912;color:var(--green)}.balance.warn{background:#fbbf2412;color:var(--yellow)}.sleep-entry{display:grid;grid-template-columns:1fr 1fr;gap:9px}.sleep-result{margin-top:11px;border-top:1px solid var(--border);padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:11px}.sleep-result b{font:13px var(--mono);color:var(--teal)}.sleep-result.below b{color:var(--red)}.countdown{font-size:23px;font-weight:700;letter-spacing:-.04em;color:var(--indigo);margin:7px 0 2px}.improve{display:flex;gap:9px;align-items:flex-start}.improve-icon{color:var(--amber);font-size:14px}.improve textarea{flex:1;background:transparent;border:0;resize:vertical;min-height:54px;color:var(--text);font-size:12px;padding:0;outline:none}.divider{height:1px;background:var(--border);margin:14px 0}.date-input{color-scheme:dark;min-width:140px}.toolbar{display:flex;gap:8px;align-items:center}.data-table-wrap{overflow:auto}.data-table{width:100%;border-collapse:collapse;min-width:640px}.data-table th{color:#8390a3;font-size:10px;text-transform:uppercase;letter-spacing:.07em;text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);font-weight:650}.data-table td{padding:9px 12px;border-bottom:1px solid #202936;font-size:12px;vertical-align:middle}.data-table tr:last-child td{border-bottom:0}.data-table td input,.data-table td select{background:#10161e;border:1px solid #2b3542;border-radius:6px;padding:6px 7px;font-size:11px;max-width:120px}.data-table td input[type=number]{width:64px}.tabs{display:flex;gap:4px;padding:4px;background:#111720;border:1px solid var(--border);border-radius:9px;width:max-content;margin-bottom:16px}.tabs button{border:0;background:transparent;color:var(--muted);padding:7px 11px;border-radius:6px;font-size:11px}.tabs button.active{background:#26303c;color:var(--white)}.chart-card{padding:18px;margin-top:15px}.chart-head{display:flex;justify-content:space-between;align-items:flex-start}.chart{width:100%;height:auto;display:block;overflow:visible;margin-top:12px}.chart text{font-family:var(--mono);fill:#8290a3;font-size:9px}.chart .gridline{stroke:#28313d;stroke-width:1}.chart .axis{stroke:#394555;stroke-width:1}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:10px;color:var(--muted)}.legend span{display:inline-flex;align-items:center;gap:5px}.legend i{width:7px;height:7px;border-radius:50%;display:inline-block}.score-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.score-card{padding:13px;background:#10161e;border:1px solid #252f3c;border-radius:9px}.score-card label{font-size:10px;color:var(--muted);display:block;margin-bottom:7px}.score-card select{width:100%;background:#151b24;border:1px solid #303a47;border-radius:6px;padding:7px;font-size:12px}.sleepiness-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.check-row{display:flex;gap:9px;align-items:center;color:#c5ccd7;font-size:12px}.check-row input,.module-check input,.subject-check input{accent-color:var(--amber);width:15px;height:15px}.zone-banner{padding:12px 14px;border:1px solid var(--border);border-radius:9px;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}.zone-banner .zone{font-size:12px;font-weight:700}.zone.green{background:#34d39912;border-color:#34d39935}.zone.green .zone{color:var(--green)}.zone.yellow{background:#fbbf2412;border-color:#fbbf2435}.zone.yellow .zone{color:var(--yellow)}.zone.red{background:#f8717112;border-color:#f8717135}.zone.red .zone{color:var(--red)}.review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.subject-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.subject-check{display:flex;align-items:center;gap:7px;font-size:12px;color:#c4ccd7}.subject-check select{margin-left:auto;background:#10161e;border:1px solid #303a47;border-radius:6px;padding:5px;color:var(--muted);font-size:10px}.module-list{display:grid;gap:9px}.module-card{padding:15px 16px}.module-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px}.module-id{font:11px var(--mono);color:var(--amber);font-weight:700}.module-name{font-size:13px;font-weight:650;margin-top:3px}.module-week{font-size:10px;color:var(--muted);margin-top:4px}.module-progress{width:64px;height:7px;border-radius:5px;background:#27303c;margin-top:5px;overflow:hidden}.module-progress i{height:100%;display:block;background:var(--amber);border-radius:5px}.module-progress-wrap{font:10px var(--mono);color:var(--muted);text-align:right}.module-checks{display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:13px;padding-top:11px;border-top:1px solid #26303a}.module-check{display:flex;align-items:center;gap:6px;color:#aeb8c7;font-size:10px;white-space:nowrap}.attempts{display:flex;gap:8px}.attempts label{display:flex;gap:3px;align-items:center}.overall-progress{padding:16px 18px;margin-bottom:15px}.progress-summary{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:9px}.progress-summary b{font:12px var(--mono);color:var(--amber)}.week-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-top:12px}.day-dot{text-align:center}.day-dot small{display:block;color:var(--muted);font:9px var(--mono);margin-bottom:5px}.dot{width:12px;height:12px;border-radius:50%;display:inline-block;background:#293340;border:1px solid #3a4656}.dot.hit{background:var(--green);border-color:var(--green)}.dot.miss{background:var(--red);border-color:var(--red)}.dot.mixed{background:var(--yellow);border-color:var(--yellow)}.dot.today{box-shadow:0 0 0 3px #f5b54426}.empty{padding:32px;text-align:center;color:var(--muted);font-size:12px}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.key-date-row{display:grid;grid-template-columns:130px 1fr 28px;gap:8px;align-items:center;margin-top:8px}.key-date-row input{min-width:0}.modal-backdrop{position:fixed;inset:0;z-index:20;background:#02050ac9;display:grid;place-items:center;padding:18px;animation:fade .15s}.modal{width:min(660px,100%);max-height:90vh;overflow:auto;background:#151b24;border:1px solid #2b3542;border-radius:14px;box-shadow:var(--shadow);animation:open .2s}.modal-header{display:flex;justify-content:space-between;align-items:center;padding:17px 20px;border-bottom:1px solid var(--border)}.modal-header h2{font-size:15px;margin:0}.modal-body{padding:18px 20px}.modal-close{background:transparent;border:0;color:var(--muted);font-size:19px;padding:1px 5px}.modal-footer{display:flex;justify-content:flex-end;gap:8px;padding:13px 20px;border-top:1px solid var(--border)}.toast{position:fixed;bottom:22px;right:24px;z-index:30;background:#202a36;border:1px solid #384555;color:var(--white);border-radius:9px;padding:10px 14px;font-size:12px;box-shadow:var(--shadow);animation:open .2s}.muted{color:var(--muted)}.mono{font-family:var(--mono)}.flex-between{display:flex;justify-content:space-between;align-items:center;gap:12px}.mb-14{margin-bottom:14px}.mt-14{margin-top:14px}.small-text{font-size:10px;color:var(--muted)}.pill{font-size:10px;padding:4px 8px;border-radius:6px;background:#ffffff0b;color:var(--muted)}.deload{color:var(--indigo);background:#818cf81a;border:1px solid #818cf83c}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@keyframes pulse{50%{opacity:.45;box-shadow:0 0 4px #34d39955}}@keyframes open{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}@keyframes fade{from{opacity:0}to{opacity:1}}
+@media(max-width:980px){.sidebar{width:68px;padding:18px 9px}.brand{justify-content:center;padding:0 0 22px}.brand-copy,.nav-label,.nav-text,.sidebar-bottom{display:none}.nav a{justify-content:center;padding:0}.nav-icon{width:auto;font-size:16px}.main{margin-left:68px}.topbar{padding:0 20px}.content{padding:24px 20px 50px}.today-layout{grid-template-columns:minmax(0,1.4fr) minmax(245px,.8fr)}}
+@media(max-width:720px){.topbar{height:auto;min-height:64px;padding:10px 14px;align-items:flex-start;flex-direction:column;gap:9px}.top-right{width:100%;justify-content:space-between}.mode-label{display:none}.mode-pill{flex:1;justify-content:space-between}.mode-pill button{flex:1;padding:6px 4px}.live-time{margin-left:auto}.content{padding:19px 13px 42px}.page-head h1{font-size:22px}.stats-grid{gap:8px}.stat{padding:12px;min-height:100px}.stat-value{font-size:19px}.today-layout{grid-template-columns:1fr}.side-stack{grid-template-columns:repeat(2,minmax(0,1fr))}.score-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.score-card:last-child{grid-column:span 2}.settings-grid,.review-grid{grid-template-columns:1fr}.page-head{align-items:flex-start}.date-input{min-width:120px}.timeline-row{grid-template-columns:72px 13px minmax(0,1fr) auto;gap:7px}.timeline-name{font-size:11px}}
+@media(max-width:430px){.main{margin-left:56px}.sidebar{width:56px}.content{padding-inline:10px}.topbar{padding-inline:11px}.side-stack{grid-template-columns:1fr}.stats-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.stat-value{font-size:17px}.stat-sub{font-size:9px}.stat-label{font-size:10px}.timeline-time{font-size:9px}.timeline-row{grid-template-columns:62px 12px minmax(0,1fr) auto}.duration{display:none}.now-remain{font-size:10px}.head-actions{gap:5px}.head-actions .btn{padding:6px 8px}.tally-cell input{font-size:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" aria-label="Main navigation">
+  <a class="brand" href="#today"><span class="brand-mark">F</span><span class="brand-copy"><strong>FOM DAILY</strong><small>Study tracker · v2.1</small></span></a>
+  <div class="nav-label">Workspace</div>
+  <nav class="nav">
+    <a href="#today" data-page="today" aria-label="Today"><span class="nav-icon">◷</span><span class="nav-text">Today</span></a>
+    <a href="#milestones" data-page="milestones" aria-label="Milestone Card"><span class="nav-icon">▤</span><span class="nav-text">Milestone Card</span></a>
+    <a href="#errors" data-page="errors" aria-label="Error Log"><span class="nav-icon">⌁</span><span class="nav-text">Error Log</span></a>
+    <a href="#energy" data-page="energy" aria-label="Energy and Sleep"><span class="nav-icon">⌁</span><span class="nav-text">Energy &amp; Sleep</span></a>
+    <a href="#weekly" data-page="weekly" aria-label="Weekly Review"><span class="nav-icon">▦</span><span class="nav-text">Weekly Review</span></a>
+    <a href="#modules" data-page="modules" aria-label="Modules"><span class="nav-icon">◫</span><span class="nav-text">Modules</span></a>
+  </nav>
+  <div class="nav-label" style="margin-top:14px">Preferences</div>
+  <nav class="nav"><a href="#settings" data-page="settings" aria-label="Settings"><span class="nav-icon">⚙</span><span class="nav-text">Settings</span></a></nav>
+  <div class="sidebar-bottom"><b>One day at a time.</b><br>Revision closes the day. Sleep seals it.</div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <div class="top-left"><span class="date-context" id="topDate">—</span><span class="live-time" id="liveTime" aria-label="Current time">--:--:--</span></div>
+    <div class="top-right"><span class="mode-label">Day mode</span><div class="mode-pill" role="group" aria-label="Select day mode">
+      <button data-mode="Green" aria-pressed="false">Green</button><button data-mode="Lite" aria-pressed="false">Lite</button><button data-mode="Yellow" aria-pressed="false">Yellow</button><button data-mode="Red" aria-pressed="false">Red</button>
+    </div></div>
+  </header>
+  <section class="content" id="view" aria-live="polite"></section>
+</main>
+</div>
+<div id="overlay"></div>
+<script>
+(() => {
+  "use strict";
+  const STORE_KEY = "fom-daily-schedule-v2.1";
+  const START_DEFAULT = "2026-11-09";
+  const MODES = {Green:640,Lite:560,Yellow:320,Red:45};
+  const LIGHTS_OUT = {Green:"23:45",Lite:"23:25",Yellow:"23:15",Red:"23:00"};
+  const MILESTONES = [
+    ["fom1","FOM-1","FOM"],["fom2","FOM-2","FOM"],["fom3","FOM-3","FOM"],
+    ["fom4","FOM-4","FOM"],["phy","PHY","Physics"],["che","CHE","Chemistry"],
+    ["ce","C+E","CS + English"],["rev","REV","Revision"]
+  ];
+  const CODES = ["C","T","A","P","M","S","D"];
+  const CODE_NAMES = {C:"Concept",T:"Technique",A:"Arithmetic",P:"Proof",M:"Misread",S:"Speed",D:"Gave up"};
+  const SUBJECTS = ["FOM-1","FOM-2","FOM-3","FOM-4","PHY","CHE","C+E","REV"];
+  const MODULES = [
+    ["A-00","Arithmetic & Number Sense","9 – 15 Nov 2026"],["A-01","Sets, Numbers & Divisibility","16 – 29 Nov 2026"],["A-02","Counting & Induction","30 Nov – 20 Dec 2026"],
+    ["A-03","Logarithms, Polynomials & Quadratics","21 Dec 2026 – 3 Jan 2027"],["A-04","Sequences & Inequalities","4 – 17 Jan 2027"],["A-05","Complex Numbers, Matrices & Determinants","18 – 31 Jan 2027"],
+    ["B-01","Plane & Coordinate Geometry Foundations","1 – 21 Feb 2027"],["B-02","Triangles & Mensuration","22 Feb – 7 Mar 2027"],["B-03","Conic Sections","8 – 28 Mar 2027"],
+    ["C-01","Angles & Trigonometric Functions","29 Mar – 11 Apr 2027"],["C-02","Identities & Equations","12 – 25 Apr 2027"],["C-03","Triangles & Applications","26 Apr – 9 May 2027"],
+    ["D-01","Sequences, Functions & Limits","10 – 30 May 2027"],["D-02","Differentiation","31 May – 20 Jun 2027"],["D-03","Curve Sketching","21 – 27 Jun 2027"],
+    ["D-04","Integration & Applications","28 Jun – 11 Jul 2027"],["D-05","Differential Equations","12 – 18 Jul 2027"],["E-01","Number Theory","19 Jul – 29 Aug 2027"],
+    ["E-02","Combinatorics","30 Aug – 10 Oct 2027"],["E-03","Olympiad Inequalities","11 Oct – 14 Nov 2027"],["E-04","Functional Equations","15 Nov – 12 Dec 2027"],["E-05","Olympiad Synthetic Geometry","13 Dec 2027 – 16 Jan 2028"]
+  ];
+  const MODULE_CHECKS = [["tier1","Tier I"],["tier2","Tier II"],["tier3","Tier III"],["mixed","Mixed review"],["test","Module test"],["attempt1","Milestone 1"],["attempt2","Milestone 2"],["attempt3","Milestone 3"],["reflection","Reflection"]];
+  const COLORS = {FOM:"#f5b544",Recovery:"#4fd1c5",Physics:"#60a5fa",Chemistry:"#a78bfa","CS + English":"#fb7185",REV:"#818cf8",HIT:"#34d399",Yellow:"#fbbf24",Red:"#f87171",Other:"#768397"};
+  const WEEKDAY = [
+    ["07:00","Wake",30,"Recovery"],["07:30","FOM-1",90,"FOM"],["09:00","Break",15,"Recovery"],["09:15","FOM-2",90,"FOM"],["10:45","Breakfast",20,"Recovery"],
+    ["11:05","PHY",80,"Physics"],["12:25","Break + mini-nap",30,"Recovery"],["12:55","CHE",80,"Chemistry"],["14:15","Lunch",30,"Recovery"],["14:45","Nap-1",30,"Recovery"],
+    ["15:15","Reset",10,"Recovery"],["15:25","C+E",80,"CS + English"],["16:45","Break",15,"Recovery"],["17:00","Rest",10,"Recovery"],["17:10","Workout",35,"Recovery"],
+    ["17:45","Bath + fuel",20,"Recovery"],["18:05","FOM-3",90,"FOM"],["19:35","Break",10,"Recovery"],["19:45","FOM-4",60,"FOM"],["20:45","Shutdown",10,"Recovery"],
+    ["20:55","Free",40,"Recovery"],["21:35","Reading",20,"Recovery"],["21:55","Dinner",35,"Recovery"],["22:30","REV",70,"REV"],["23:40","Night",5,"Recovery"],["23:45","Sleep",435,"Recovery"]
+  ];
+  const SATURDAY = [
+    ["07:30","Wake",30,"Recovery"],["08:00","S1 Milestone",90,"FOM"],["09:30","Break",15,"Recovery"],["09:45","S2 Timed set",90,"FOM"],["11:15","Breakfast",20,"Recovery"],
+    ["11:35","PCM check",60,"Physics"],["12:35","Break",15,"Recovery"],["12:50","C+E",45,"CS + English"],["13:35","Lunch",30,"Recovery"],["14:05","Nap-1",30,"Recovery"],
+    ["14:35","Reset",10,"Recovery"],["14:45","Free Zone",420,"Recovery"],["21:45","Shutdown",10,"Recovery"],["21:55","Dinner",35,"Recovery"],["22:30","REV-W",25,"REV"],
+    ["22:55","Free",15,"Recovery"],["23:10","Reading",30,"Recovery"],["23:40","Night",5,"Recovery"],["23:45","Sleep",465,"Recovery"]
+  ];
+  const SUNDAY = [
+    ["07:30","Wake",30,"Recovery"],["08:00","S3",75,"FOM"],["09:15","Break",15,"Recovery"],["09:30","S4",45,"FOM"],["10:15","Breakfast",20,"Recovery"],
+    ["10:35","C+E",30,"CS + English"],["11:05","Free Zone A",145,"Recovery"],["13:30","Lunch",30,"Recovery"],["14:00","Nap-1",30,"Recovery"],["14:30","Reset",10,"Recovery"],
+    ["14:40","Free Zone B",245,"Recovery"],["18:45","Weekly Review",45,"Recovery"],["19:30","Shutdown",15,"Recovery"],["19:45","Family",130,"Recovery"],
+    ["21:55","Dinner",35,"Recovery"],["22:30","REV-W",20,"REV"],["22:50","Free",20,"Recovery"],["23:10","Reading",30,"Recovery"],["23:40","Night",5,"Recovery"],["23:45","Sleep",435,"Recovery"]
+  ];
+  const LITE = [
+    ["07:00","Wake",30,"Recovery"],["07:30","FOM-1",90,"FOM"],["09:00","Break",15,"Recovery"],["09:15","FOM-2",90,"FOM"],["10:45","Breakfast",20,"Recovery"],
+    ["11:05","PHY · Lite",70,"Physics"],["12:15","Break + mini-nap",40,"Recovery"],["12:55","CHE · Lite",70,"Chemistry"],["14:05","Breathing room",10,"Recovery"],
+    ["14:15","Lunch",30,"Recovery"],["14:45","Nap-1",30,"Recovery"],["15:15","Reset",10,"Recovery"],["15:25","C+E · Lite",70,"CS + English"],
+    ["16:35","Break 3 · extended",30,"Recovery"],["17:05","Rest",5,"Recovery"],["17:10","Workout",35,"Recovery"],["17:45","Bath + fuel",20,"Recovery"],
+    ["18:05","FOM-3",90,"FOM"],["19:35","Break",10,"Recovery"],["19:45","FOM-4 · Lite analysis",30,"FOM"],["20:15","Shutdown",10,"Recovery"],
+    ["20:25","Free · extended",70,"Recovery"],["21:35","Reading",20,"Recovery"],["21:55","Dinner",35,"Recovery"],["22:30","REV · Lite",50,"REV"],
+    ["23:20","Night",5,"Recovery"],["23:25","Sleep",455,"Recovery"]
+  ];
+  const YELLOW = [
+    ["07:00","Wake-up + slow morning",30,"Recovery"],["07:30","FOM-1 · Learn (short)",60,"FOM"],["08:30","Break 1",15,"Recovery"],
+    ["08:45","FOM-2 · Practice (short)",60,"FOM"],["09:45","Breakfast",20,"Recovery"],["10:05","PHY (short)",50,"Physics"],
+    ["10:55","Break",15,"Recovery"],["11:10","CHE (short)",50,"Chemistry"],["12:00","Recovery menu",80,"Recovery"],
+    ["13:20","Lunch",30,"Recovery"],["13:50","Nap-1",30,"Recovery"],["14:20","Reset",10,"Recovery"],
+    ["14:30","C+E (mini)",30,"CS + English"],["15:00","Free time + easy movement",255,"Recovery"],["19:15","FOM-4 · Analysis (short)",30,"FOM"],
+    ["19:45","Shutdown ritual",10,"Recovery"],["19:55","Free evening",100,"Recovery"],["21:35","Evening reading",20,"Recovery"],
+    ["21:55","Dinner",35,"Recovery"],["22:30","REV (short)",40,"REV"],["23:10","Night routine",5,"Recovery"],["23:15","Sleep",465,"Recovery"]
+  ];
+  const RED = [
+    ["07:00","Back to bed",45,"Recovery"],["07:45","Slow wake-up routine",30,"Recovery"],["08:15","Gentle FOM touch (optional)",30,"FOM"],
+    ["08:45","Breakfast + bath",45,"Recovery"],["09:30","Outdoor walk / stretch",60,"Recovery"],["10:30","Free time",180,"Recovery"],
+    ["13:30","Lunch",30,"Recovery"],["14:00","Nap-1",30,"Recovery"],["14:30","Reset",10,"Recovery"],["14:40","Free time",290,"Recovery"],
+    ["19:30","Shutdown ritual",10,"Recovery"],["19:40","Free evening",115,"Recovery"],["21:35","Evening reading",20,"Recovery"],
+    ["21:55","Dinner",35,"Recovery"],["22:30","REV-lite",15,"REV"],["22:45","Wind-down",10,"Recovery"],
+    ["22:55","Night routine",5,"Recovery"],["23:00","Sleep",480,"Recovery"]
+  ];
+  const defaults = () => ({settings:{startDate:START_DEFAULT,keyDates:[]},daily:{},modules:{},errors:[],weeks:{}});
+  let state;
+  try { state = Object.assign(defaults(), JSON.parse(localStorage.getItem(STORE_KEY) || "{}")); }
+  catch (error) { console.error("Could not read saved study tracker data.", error); state = defaults(); }
+  state.settings ||= defaults().settings; state.daily ||= {}; state.modules ||= {}; state.errors ||= []; state.weeks ||= {};
+  let selectedDate;
+  let openBlock = null, errorTab = "tally", modal = null, toastTimer;
+  const $ = (s, root=document) => root.querySelector(s);
+  const $$ = (s, root=document) => [...root.querySelectorAll(s)];
+  const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const localDate = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  selectedDate = localDate(new Date());
+  const dateObj = s => { const [y,m,d]=String(s).split("-").map(Number); return new Date(y,m-1,d,12); };
+  const isoWeek = s => { const d=dateObj(s); d.setDate(d.getDate()+4-(d.getDay()||7)); const y=d.getFullYear(); const first=new Date(y,0,1); return `${y}-W${String(Math.ceil((((d-first)/86400000)+1)/7)).padStart(2,"0")}`; };
+  const mondayOf = s => { const d=dateObj(s); d.setDate(d.getDate()-((d.getDay()+6)%7)); return localDate(d); };
+  const plusDays = (s,n) => {const d=dateObj(s);d.setDate(d.getDate()+n);return localDate(d);};
+  const formatDate = (s,opts={weekday:"short",month:"short",day:"numeric",year:"numeric"}) => dateObj(s).toLocaleDateString(undefined,opts);
+  const dayData = (s=selectedDate) => state.daily[s] ||= {mode:"Green",milestones:{},tally:{flags:0,corrected:0,doubt:0},sleep:{lights:"23:45",wake:[0,6].includes(dateObj(s).getDay())?"07:30":"07:00"},energy:{},sleepiness:{},toggles:{},improvement:""};
+  const save = () => { try { localStorage.setItem(STORE_KEY,JSON.stringify(state)); } catch(error) { console.error("Could not save study tracker data.",error); toast("Could not save. Check available browser storage."); } };
+  const toast = msg => { const host=$("#overlay"); host.innerHTML=`<div class="toast" role="status">${esc(msg)}</div>`; clearTimeout(toastTimer);toastTimer=setTimeout(()=>{if(host.querySelector(".toast"))host.innerHTML="";},2300); };
+  const minsTime = time => {const [h,m]=time.split(":").map(Number);return h*60+m;};
+  const clockTime = mins => `${String(Math.floor((mins%1440)/60)).padStart(2,"0")}:${String(mins%60).padStart(2,"0")}`;
+  const durationLabel = n => `${n}m`;
+  function timeline(date=selectedDate,mode=dayData(date).mode) {
+    const weekday=dateObj(date).getDay()!==0&&dateObj(date).getDay()!==6;
+    if(weekday&&mode==="Lite")return LITE;
+    if(weekday&&mode==="Yellow")return YELLOW;
+    if(weekday&&mode==="Red")return RED;
+    return dateObj(date).getDay()===6?SATURDAY:dateObj(date).getDay()===0?SUNDAY:WEEKDAY;
+  }
+  function getBlocks(date=selectedDate,mode=dayData(date).mode) {
+    const list=timeline(date,mode);return list.map((item,i)=>{let start=minsTime(item[0]); if(i && start<minsTime(list[i-1][0]))start+=1440;return {time:item[0],name:item[1],duration:item[2],category:item[3],start,end:start+item[2]};});
+  }
+  function isStudy(block){return ["FOM","Physics","Chemistry","CS + English","REV"].includes(block.category);}
+  function getMilestone(block) {
+    const name=block.name;
+    if(/FOM-1|S1|Gentle FOM touch/.test(name))return "fom1"; if(/FOM-2|S2|S3|S4/.test(name))return "fom2";
+    if(/FOM-3/.test(name))return "fom3"; if(/FOM-4/.test(name))return "fom4";
+    if(/PHY|PCM/.test(name))return "phy";if(/CHE/.test(name))return "che";if(/C\+E/.test(name))return "ce";if(/^REV/.test(name))return "rev";return null;
+  }
+  function milestoneData(key,date=selectedDate){const d=dayData(date);return d.milestones[key] ||= {text:"",evidence:"",status:""};}
+  function updateTop() {
+    const d=dayData(); $("#topDate").textContent=formatDate(selectedDate,{weekday:"short",month:"short",day:"numeric"});
+    $$(".mode-pill button").forEach(b=>{const on=b.dataset.mode===d.mode;b.classList.toggle("selected",on);b.setAttribute("aria-pressed",String(on));});
+    const now=new Date();$("#liveTime").textContent=now.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
+    $("#liveTime").setAttribute("aria-label",`Current time ${$("#liveTime").textContent}`);
+  }
+  function deloadInfo(date=selectedDate) {
+    const start=state.settings.startDate||START_DEFAULT;const diff=Math.floor((dateObj(mondayOf(date))-dateObj(mondayOf(start)))/86400000/7);
+    if(diff<0)return {inside:false,next:3-diff};
+    const week=diff+1,rem=week%4;return {inside:rem===0,week,next:rem===0?0:4-rem};
+  }
+  function streak() {
+    let n=0,d=dateObj(selectedDate);
+    for(let i=0;i<500;i++){const key=localDate(d),item=state.daily[key];if(!item||item.mode!=="Green"||!item.sleepLogged||sleepMinutes(item.sleep)<420)break;n++;d.setDate(d.getDate()-1);}
+    return n;
+  }
+  function sleepMinutes(sleep={}) {
+    const a=minsTime(sleep.lights||"23:45"),b=minsTime(sleep.wake||"07:00");return (b-a+1440)%1440;
+  }
+  function studyMinutes(date=selectedDate) {return getBlocks(date).reduce((sum,b)=>sum+(isStudy(b)?b.duration:0),0);}
+  function totalMilestoneHits(date=selectedDate) {const ms=dayData(date).milestones;return Object.values(ms).filter(x=>x.status==="HIT").length;}
+  function pageTitle(page) {return ({today:"Today",milestones:"Milestone Card",errors:"Error Log",energy:"Energy & Sleep",weekly:"Weekly Review",modules:"Modules",settings:"Settings"})[page]||"Today";}
+  function render() {
+    const page=(location.hash||"#today").slice(1);const valid=["today","milestones","errors","energy","weekly","modules","settings"].includes(page)?page:"today";
+    $$(".nav a").forEach(a=>a.classList.toggle("active",a.dataset.page===valid));
+    updateTop();const view=$("#view");view.innerHTML=({today:renderToday,milestones:renderMilestones,errors:renderErrors,energy:renderEnergy,weekly:renderWeekly,modules:renderModules,settings:renderSettings})[valid]();
+    if(modal)renderModal();
+  }
+  function head(title,subtitle,actions="") {return `<header class="page-head"><div><div class="eyebrow">FOM DAILY SCHEDULE · v2.1</div><h1>${title}</h1><p>${subtitle}</p></div><div class="head-actions">${actions}</div></header>`;}
+  function dateControl(value=selectedDate) {return `<input class="input date-input" type="date" aria-label="Select date" data-action="selected-date" value="${esc(value)}">`;}
+  function renderToday() {
+    const d=dayData(),blocks=getBlocks(),now=new Date(),current=now.getHours()*60+now.getMinutes(),hit=totalMilestoneHits(),total=8,study=studyMinutes(),sleepLogged=Boolean(d.sleepLogged);
+    const weekday=dateObj(selectedDate).getDay()>0&&dateObj(selectedDate).getDay()<6;
+    const isToday=selectedDate===localDate(now),overnight=isToday&&current<minsTime(blocks[0].time);
+    const active=isToday?(blocks.find(b=>current>=b.start&&current<b.end)||(overnight?blocks.at(-1):null)):null,activeIndex=active?blocks.indexOf(active):-1;
+    const nxt=activeIndex===blocks.length-1&&(overnight||active?.name==="Sleep")?blocks.slice(0,2):activeIndex>=0?blocks.slice(activeIndex+1,activeIndex+3):isToday?blocks.filter(b=>b.start>current).slice(0,2):blocks.slice(0,2);
+    const activeClock=active&&active===blocks.at(-1)&&overnight?current+1440:current;
+    const progress=active?Math.min(100,Math.max(0,((activeClock-active.start)/active.duration)*100)):0;
+    const di=deloadInfo(),hours=sleepMinutes(d.sleep)/60,rem=active?active.end-activeClock:null;
+    const stat=`<div class="grid stats-grid">
+      <article class="card stat" style="--glow:#4fd1c51c"><div class="stat-label">Sleep last night</div><div class="stat-value">${sleepLogged?hours.toFixed(1):"—"}<span class="unit">${sleepLogged?" hrs":""}</span></div><div class="stat-sub">${sleepLogged?(hours>=7?"Above the 7h floor":"Below the 7h floor"):"Log lights-out and wake"} · streak ${streak()}d</div></article>
+      <article class="card stat" style="--glow:#f5b5441c"><div class="stat-label">Study minutes</div><div class="stat-value">${study}<span class="unit"> / ${weekday?MODES[d.mode]:study} min</span></div><div class="stat-sub">${weekday?`${d.mode} weekday target`:"Fixed weekend plan · weekday mode target not applied"}</div></article>
+      <article class="card stat" style="--glow:#34d3991b"><div class="stat-label">Milestones hit</div><div class="stat-value">${hit}<span class="unit"> / ${total}</span></div><div class="stat-sub">Today’s progress</div></article></div>`;
+    const modeSummary=weekday?{
+      Green:"Full weekday plan · 640 study minutes · lights-out 23:45.",
+      Lite:"Reduced weekday plan · 560 study minutes · shorter science, C+E, FOM-4 and REV blocks.",
+      Yellow:"Recovery weekday plan · 320 study minutes · protected recovery blocks · lights-out 23:15.",
+      Red:"Minimum viable weekday · up to 45 study minutes · recovery first · lights-out 23:00."
+    }[d.mode]:`Weekend master schedule · unchanged by weekday modes. ${d.mode} mode will apply to Monday–Friday.`;
+    const upcoming=arr=>arr.length?arr.map((b,i)=>`<div><div class="next-label">${i?"Then":"Up next"}</div><div class="next-name">${esc(b.name)}</div><div class="next-time">${b.time} · ${durationLabel(b.duration)}</div></div>`).join(""):`<div><div class="next-label">Up next</div><div class="next-name">Day complete</div><div class="next-time">Nice work showing up.</div></div>`;
+    const nowCard=`<section class="card now-card" style="--now-color:${active?COLORS[active.category]||COLORS.Other:COLORS.FOM}">
+      <div class="now-top"><div><div class="now-title"><span class="live-dot"></span><h2>Now &amp; next</h2><span class="block-tag">${active?esc(active.category.toUpperCase()):"CURRENTLY OFF SCHEDULE"}</span></div><div class="now-block">${active?esc(active.name):"No active block"}</div><div class="now-time">${active?`${active.time} – ${clockTime(active.end)}`:"Check your next planned block"}</div></div>
+      <div class="now-remain">${active?`${rem} min left`:"—"}</div></div>
+      <div class="progress-track" aria-label="Block progress"><div class="progress-fill" style="width:${progress}%"></div></div>
+      <div class="now-next">${upcoming(nxt)}</div></section>`;
+    return `${head("Today",`Your schedule, in focus. ${formatDate(selectedDate,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}.`,`${dateControl()}${di.inside?'<span class="pill deload">✦ Deload week</span>':""}`)}
+    <div class="card card-pad mb-14" style="display:flex;align-items:center;gap:12px"><span class="live-dot" style="background:${d.mode==="Green"?"var(--green)":d.mode==="Lite"?"var(--teal)":d.mode==="Yellow"?"var(--yellow)":"var(--red)"}"></span><div><div class="section-title">${weekday?`${d.mode} weekday schedule`:`${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dateObj(selectedDate).getDay()]} master schedule`}</div><div class="section-sub">${modeSummary}</div></div></div>
+    ${stat}<div class="today-layout"><div>${nowCard}${renderTimeline(blocks)}</div><aside class="side-stack">
+      ${renderTallyCard(d)}${renderSleepCard(d)}
+      <section class="card side-card"><div class="side-card-head"><div><div class="section-title">Next deload</div><div class="section-sub">Every 4th week from plan start</div></div><span class="mini-badge">W${di.week||"—"}</span></div><div class="countdown">${di.inside?"This week":`${di.next} ${di.next===1?"week":"weeks"}`}</div><div class="small-text">${di.inside?"Scheduled recovery week. Keep the anchors; reduce the load.":`Week ${(di.week||0)+di.next||4} · plan start ${formatDate(state.settings.startDate||START_DEFAULT,{month:"short",day:"numeric"})}`}</div></section>
+      <section class="card side-card"><div class="side-card-head"><div><div class="section-title">Today’s improvement</div><div class="section-sub">One small adjustment is enough</div></div><span class="improve-icon">✦</span></div><div class="improve"><span class="improve-icon">↳</span><textarea aria-label="Today's improvement" placeholder="What will you do a little better today?" data-bind="daily.improvement">${esc(d.improvement||"")}</textarea></div></section>
+    </aside></div>`;
+  }
+  function renderTallyCard(d) {
+    const t=d.tally||{},balanced=Number(t.flags||0)===Number(t.corrected||0);
+    return `<section class="card side-card"><div class="side-card-head"><div><div class="section-title">FOM-4 tally</div><div class="section-sub">Every flag coded, caused, corrected</div></div><a class="mini-badge" href="#errors">Full log ↗</a></div>
+      <div class="tally-grid">${[["flags","Flagged"],["corrected","Corrected"],["doubt","To doubt log"]].map(([k,l])=>`<div class="tally-cell"><label for="tally-${k}">${l}</label><input id="tally-${k}" type="number" min="0" step="1" value="${esc(t[k]??0)}" data-bind="daily.tally.${k}" aria-label="${l} count"></div>`).join("")}</div>
+      <div class="balance ${balanced?"good":"warn"}"><span>${balanced?"✓ Balanced":"! Needs attention"}</span><span>${Number(t.corrected||0)} / ${Number(t.flags||0)} corrected</span></div></section>`;
+  }
+  function renderSleepCard(d) {
+    const s=d.sleep||{},mins=sleepMinutes(s),hh=Math.floor(mins/60),mm=mins%60;
+    return `<section class="card side-card"><div class="side-card-head"><div><div class="section-title">Sleep check</div><div class="section-sub">Lights-out → wake · target ${LIGHTS_OUT[d.mode]||"23:45"}</div></div><span class="mini-badge">7h floor</span></div>
+      <div class="sleep-entry"><div class="field"><label for="lights">Lights-out</label><input id="lights" type="time" value="${esc(s.lights||"23:45")}" data-bind="daily.sleep.lights"></div><div class="field"><label for="wake">Wake</label><input id="wake" type="time" value="${esc(s.wake||"07:00")}" data-bind="daily.sleep.wake"></div></div>
+      <div class="sleep-result ${mins<420?"below":""}"><span>${d.sleepLogged?"Sleep duration":"Schedule estimate"}</span><b>${hh}h ${String(mm).padStart(2,"0")}m ${mins>=420?"✓":"· below floor"}</b></div></section>`;
+  }
+  function renderTimeline(blocks) {
+    const d=dayData(),now=new Date(),current=now.getHours()*60+now.getMinutes(),dayOffset=dateObj(selectedDate).toDateString()===new Date().toDateString()?0:1,overnight=dayOffset===0&&current<minsTime(blocks[0].time);
+    return `<section class="card timeline-card"><div class="card-header"><div><div class="section-title">Day timeline</div><div class="section-sub">${blocks.length} blocks · tap a study block to add its milestone and evidence</div></div><span class="mini-badge">${["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][dateObj(selectedDate).getDay()]}</span></div><div class="timeline-list">
+      ${blocks.map((b,i)=>{const key=getMilestone(b),m=key?milestoneData(key):null,nowActive=dayOffset===0&&((current>=b.start&&current<b.end)||(overnight&&i===blocks.length-1));const status=m?.status;
+        return `<div class="timeline-row ${isStudy(b)?"study":""} ${nowActive?"active":""}" role="button" tabindex="0" data-open-block="${key||""}" data-block-index="${i}" style="--rail:${COLORS[b.category]||COLORS.Other}">
+          <span class="timeline-time">${b.time}</span><span class="timeline-rail"><i class="timeline-dot"></i></span><span class="timeline-name">${esc(b.name)}</span><span class="timeline-meta"><span class="duration">${b.duration}m</span>${nowActive?'<span class="chip active-chip">NOW</span>':status?`<span class="chip ${status==="HIT"?"hit":"miss"}">${status}</span>`:""}</span>
+          ${openBlock===i&&key?`<div class="block-detail" data-detail="${i}"><div class="detail-form"><div class="field"><label>Milestone</label><input type="text" value="${key==="fom4"?"Every flag coded, caused, corrected; tally written":esc(m.text)}" ${key==="fom4"?"readonly":'placeholder="What will count as done?" data-bind="daily.milestones.'+key+'.text"'}></div><div class="field"><label>Evidence</label><input type="text" value="${esc(m.evidence)}" placeholder="What will you keep as proof?" data-bind="daily.milestones.${key}.evidence"></div><div class="detail-actions"><button class="toggle-btn ${status==="HIT"?"on":""}" data-set-status="${key}:HIT" aria-pressed="${status==="HIT"}">✓ HIT</button><button class="toggle-btn ${status==="MISS"?"off":""}" data-set-status="${key}:MISS" aria-pressed="${status==="MISS"}">× MISS</button><button class="btn small ghost" data-set-status="${key}:" aria-label="Clear status">Clear</button></div></div></div>`:""}
+        </div>`;
+      }).join("")}</div></section>`;
+  }
+  function renderMilestones() {
+    const d=dayData(),keys=MILESTONES;const week=mondayOf(selectedDate);
+    return `${head("Milestone Card","Write the outcome before you start. Record evidence when the work is done.",dateControl())}
+      <section class="card"><div class="card-header"><div><div class="section-title">Daily outcomes</div><div class="section-sub">${formatDate(selectedDate,{weekday:"long",month:"long",day:"numeric"})} · eight checkpoints</div></div><span class="mini-badge">${totalMilestoneHits()}/8 HIT</span></div>
+        <div class="data-table-wrap"><table class="data-table" style="min-width:740px"><thead><tr><th>Block</th><th>Milestone text</th><th>Evidence</th><th>Result</th></tr></thead><tbody>
+        ${keys.map(([key,label])=>{const m=milestoneData(key);return `<tr><td><b style="color:${key==="rev"?COLORS.REV:COLORS.FOM}">${label}</b></td><td>${key==="fom4"?'<span class="small-text">Every flag coded, caused, corrected; tally written</span>':`<input type="text" aria-label="${label} milestone text" placeholder="Define done…" value="${esc(m.text)}" data-bind="daily.milestones.${key}.text" style="width:100%;max-width:360px">`}</td><td><input type="text" aria-label="${label} evidence" placeholder="Evidence…" value="${esc(m.evidence)}" data-bind="daily.milestones.${key}.evidence" style="width:100%;max-width:240px"></td><td><div class="detail-actions" style="justify-content:flex-start"><button class="toggle-btn small ${m.status==="HIT"?"on":""}" data-set-status="${key}:HIT" aria-pressed="${m.status==="HIT"}">HIT</button><button class="toggle-btn small ${m.status==="MISS"?"off":""}" data-set-status="${key}:MISS" aria-pressed="${m.status==="MISS"}">MISS</button></div></td></tr>`;}).join("")}
+        </tbody></table></div><div class="card-pad" style="border-top:1px solid var(--border)"><div class="review-grid"><div class="field"><label for="unfinished">Unfinished</label><textarea id="unfinished" placeholder="What remains open?" data-bind="daily.unfinished">${esc(d.unfinished||"")}</textarea></div><div class="field"><label for="hardest">Hardest ten minutes</label><textarea id="hardest" placeholder="What was the most demanding part?" data-bind="daily.hardest">${esc(d.hardest||"")}</textarea></div></div></div></section>
+      <section class="card card-pad mt-14"><div class="flex-between"><div><div class="section-title">Last 7 days</div><div class="section-sub">Daily milestone completion</div></div><span class="small-text">HIT · MISS · no result</span></div>
+        <div class="week-strip">${Array.from({length:7},(_,i)=>{const date=plusDays(week,i),hit=totalMilestoneHits(date),ms=Object.values((state.daily[date]||{}).milestones||{}),misses=ms.filter(x=>x.status==="MISS").length,cls=hit&&misses?"mixed":hit?"hit":misses?"miss":"";return `<div class="day-dot"><small>${formatDate(date,{weekday:"short"})}</small><span class="dot ${cls} ${date===selectedDate?"today":""}" title="${esc(formatDate(date,{weekday:"long",month:"short",day:"numeric"}))}: ${hit} HIT · ${misses} MISS"></span><div class="small-text">${hit}/8</div></div>`;}).join("")}</div></section>`;
+  }
+  function tallyDates() {return Array.from({length:14},(_,i)=>plusDays(selectedDate,i-13));}
+  function tallyRows() {
+    return tallyDates().map(date=>{const t=(state.daily[date]||{}).tally||{};return `<tr><td>${esc(formatDate(date,{month:"short",day:"numeric",weekday:"short"}))}</td>${["flags","corrected","doubt"].map(k=>`<td><input type="number" min="0" step="1" value="${esc(t[k]??0)}" aria-label="${k} on ${date}" data-bind-date="${date}" data-bind-key="tally.${k}"></td>`).join("")}<td>${Number(t.flags||0)===Number(t.corrected||0)?'<span class="chip hit">BALANCED</span>':'<span class="chip miss">CHECK</span>'}</td></tr>`;}).join("");
+  }
+  function tallyChart() {
+    const values=tallyDates().map(d=>Number((state.daily[d]||{}).tally?.flags||0)),max=Math.max(4,...values),w=680,h=170,left=28,right=12,top=12,bottom=28,innerW=w-left-right,innerH=h-top-bottom,barW=innerW/14*.55;
+    const bars=values.map((v,i)=>{const x=left+(i+.5)*innerW/14-barW/2,y=top+innerH-v/max*innerH;return `<rect x="${x}" y="${y}" width="${barW}" height="${Math.max(1,top+innerH-y)}" rx="3" fill="#f5b544" opacity=".8"><title>${tallyDates()[i]}: ${v} flags</title></rect><text x="${x+barW/2}" y="${h-7}" text-anchor="middle">${dateObj(tallyDates()[i]).getDate()}</text>`;}).join("");
+    const lines=[0,Math.ceil(max/2),max].map(v=>{const y=top+innerH-v/max*innerH;return `<line class="gridline" x1="${left}" x2="${w-right}" y1="${y}" y2="${y}"/><text x="${left-8}" y="${y+3}" text-anchor="end">${v}</text>`;}).join("");
+    return `<svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Bar chart showing flags per day for the last 14 days">${lines}${bars}<line class="axis" x1="${left}" x2="${w-right}" y1="${top+innerH}" y2="${top+innerH}"/></svg>`;
+  }
+  function renderErrors() {
+    const content=errorTab==="tally"?`<section class="card"><div class="card-header"><div><div class="section-title">FOM-4 tally · last 14 days</div><div class="section-sub">Every flag gets a code, cause and correction.</div></div></div><div class="data-table-wrap"><table class="data-table" style="min-width:590px"><thead><tr><th>Date</th><th>Flagged</th><th>Corrected</th><th>To doubt log</th><th>Balance</th></tr></thead><tbody>${tallyRows()}</tbody></table></div></section><section class="card chart-card"><div class="chart-head"><div><div class="section-title">Flags per day</div><div class="section-sub">Last 14 days · based on daily tally</div></div><span class="mini-badge">14 days</span></div>${tallyChart()}</section>`:
+      `<section class="card"><div class="card-header"><div><div class="section-title">Error entries</div><div class="section-sub">Capture the mistake, cause and re-solve result.</div></div><button class="btn primary" data-action="new-error">＋ Add entry</button></div>${state.errors.length?`<div class="data-table-wrap"><table class="data-table" style="min-width:1040px"><thead><tr><th>Date</th><th>Subject</th><th>Ref</th><th>Mark</th><th>Code</th><th>Cause</th><th>Fix</th><th>Re-solve</th><th>Result</th><th></th></tr></thead><tbody>${[...state.errors].sort((a,b)=>b.date.localeCompare(a.date)).map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.subject)}</td><td>${esc(e.ref)}</td><td><span class="chip ${e.mark==="H"?"hit":"miss"}">${esc(e.mark)}</span></td><td>${esc(e.code)} · ${esc(CODE_NAMES[e.code]||"")}</td><td>${esc(e.cause)}</td><td>${esc(e.fix)}</td><td>${esc(e.resolveDate||"—")}</td><td>${esc(e.result||"—")}</td><td><button class="btn small ghost" data-delete-error="${esc(e.id)}" aria-label="Delete error entry">×</button></td></tr>`).join("")}</tbody></table></div>`:`<div class="empty">No error entries yet. Add one when a problem teaches you something.</div>`}</section>`;
+    return `${head("Error Log","A mistake is data. Capture it, correct it, and come back to it.",dateControl())}
+      <div class="tabs" role="tablist" aria-label="Error log views"><button role="tab" aria-selected="${errorTab==="tally"}" class="${errorTab==="tally"?"active":""}" data-error-tab="tally">FOM-4 tally</button><button role="tab" aria-selected="${errorTab==="entries"}" class="${errorTab==="entries"?"active":""}" data-error-tab="entries">Error entries <span class="pill">${state.errors.length}</span></button></div>${content}`;
+  }
+  function weekDates(date=selectedDate) {const mon=mondayOf(date);return Array.from({length:7},(_,i)=>plusDays(mon,i));}
+  function scoreAverage(date) {
+    const e=(state.daily[date]||{}).energy||{},vals=["quality","energy","mood","focus","motivation"].map(k=>Number(e[k])).filter(x=>x>0);
+    return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;
+  }
+  function weeklyAvg(date=selectedDate) {const vals=weekDates(date).map(scoreAverage).filter(x=>x!==null);return vals.length?vals.reduce((a,b)=>a+b,0)/vals.length:null;}
+  function zoneFor(avg) {return avg===null?{name:"No data",color:""}:avg>=3.5?{name:"Green",color:"green"}:avg>=2.5?{name:"Yellow",color:"yellow"}:{name:"Red",color:"red"};}
+  function lineChart() {
+    const dates=weekDates(),keys=[["quality","Sleep quality","#4fd1c5"],["energy","Energy","#f5b544"],["focus","Focus","#60a5fa"],["mood","Mood","#a78bfa"],["motivation","Motivation","#fb7185"]];
+    const w=680,h=220,left=34,right=16,top=18,bottom=32,iw=w-left-right,ih=h-top-bottom;
+    const grid=[1,2,3,4,5].map(v=>{const y=top+ih-(v-1)/4*ih;return `<line class="gridline" x1="${left}" x2="${w-right}" y1="${y}" y2="${y}"/><text x="${left-10}" y="${y+3}" text-anchor="end">${v}</text>`;}).join("");
+    const days=dates.map((d,i)=>`<text x="${left+i*iw/6}" y="${h-8}" text-anchor="middle">${formatDate(d,{weekday:"short"})}</text>`).join("");
+    const series=keys.map(([key,,color])=>{const pts=dates.map((d,i)=>{const v=Number((state.daily[d]||{}).energy?.[key]);return v?`${left+i*iw/6},${top+ih-(v-1)/4*ih}`:null;}).filter(Boolean);return pts.length>1?`<polyline points="${pts.join(" ")}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`:"";}).join("");
+    const points=keys.map(([key,name,color])=>dates.map((d,i)=>{const v=Number((state.daily[d]||{}).energy?.[key]);if(!v)return "";const x=left+i*iw/6,y=top+ih-(v-1)/4*ih;return `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}"><title>${formatDate(d)} · ${name}: ${v}</title></circle>`;}).join("")).join("");
+    return `<svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="Energy and sleep scores from one to five across the selected week">${grid}${days}${series}${points}</svg>`;
+  }
+  function renderEnergy() {
+    const d=dayData(),e=d.energy||{},avg=weeklyAvg(),zone=zoneFor(avg),todaySleep=sleepMinutes(d.sleep)/60;
+    const scoreFields=[["quality","Sleep quality"],["energy","Energy"],["mood","Mood"],["focus","Focus"],["motivation","Motivation"]];
+    return `${head("Energy & Sleep","Track capacity, not just output. Use the weekly signal to adjust the load.",dateControl())}
+      <div class="zone-banner zone ${zone.color}"><div><div class="section-title">Weekly energy zone</div><div class="section-sub">Auto-computed from recorded daily scores</div></div><div style="text-align:right"><div class="zone">${avg===null?"Add scores":zone.name}</div><div class="small-text">${avg===null?"—":`${avg.toFixed(2)} average · ${weekDates().map(scoreAverage).filter(x=>x!==null).length} days logged`}</div></div></div>
+      <section class="card card-pad mb-14"><div class="flex-between mb-14"><div><div class="section-title">Daily scores</div><div class="section-sub">${formatDate(selectedDate,{weekday:"long",month:"long",day:"numeric"})} · score each from 1 (low) to 5 (high)</div></div><span class="mini-badge">${d.sleepLogged?`${todaySleep.toFixed(1)}h sleep`:"No sleep logged"}</span></div>
+        <div class="score-grid">${scoreFields.map(([key,label])=>`<div class="score-card"><label for="score-${key}">${label}</label><select id="score-${key}" aria-label="${label} score" data-bind="daily.energy.${key}"><option value="">Not scored</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${Number(e[key])===n?"selected":""}>${n} — ${["","Very low","Low","Fair","Good","Excellent"][n]}</option>`).join("")}</select></div>`).join("")}</div>
+        <div class="divider"></div><div class="section-title mb-14">Sleepiness check</div><div class="sleepiness-grid">${[["11:05","11:05"],["15:25","15:25"],["16:45","16:45"]].map(([key,label])=>`<div class="field"><label for="sleepy-${key}">${label}</label><select id="sleepy-${key}" data-bind="daily.sleepiness.${key}"><option value="">Not logged</option>${[1,2,3,4,5].map(n=>`<option value="${n}" ${Number(d.sleepiness?.[key])===n?"selected":""}>${n} / 5</option>`).join("")}</select></div>`).join("")}</div>
+        <div class="divider"></div><div class="flex-between" style="flex-wrap:wrap"><label class="check-row"><input type="checkbox" data-bind="daily.toggles.nap" ${d.toggles?.nap?"checked":""}> Nap taken</label><label class="check-row"><input type="checkbox" data-bind="daily.toggles.workout" ${d.toggles?.workout?"checked":""}> Workout done</label><span class="small-text">Sleep entry is on the Today page.</span></div></section>
+      <section class="card chart-card"><div class="chart-head"><div><div class="section-title">This week</div><div class="section-sub">${formatDate(weekDates()[0],{month:"short",day:"numeric"})} – ${formatDate(weekDates()[6],{month:"short",day:"numeric"})} · scores 1–5</div></div><div class="legend">${scoreFields.map((f,i)=>`<span><i style="background:${["#4fd1c5","#f5b544","#a78bfa","#60a5fa","#fb7185"][i]}"></i>${f[1]}</span>`).join("")}</div></div>${lineChart()}</section>`;
+  }
+  function reviewData(date=selectedDate) {const key=isoWeek(date);return state.weeks[key] ||= {subjects:{},energy:"",topCode:"",hCount:0,xCount:0,shortNights:0,workouts:0,worked:"",change:"",dial:"",deload:false,sync:false};}
+  function renderWeekly() {
+    const w=reviewData(),days=weekDates(),stats=days.map(scoreAverage).filter(x=>x!==null),avg=stats.length?stats.reduce((a,b)=>a+b,0)/stats.length:null;
+    return `${head("Weekly Review","A short Sunday reset. Review evidence, then change at most one dial.",dateControl())}
+      <section class="card card-pad mb-14"><div class="flex-between"><div><div class="section-title">Week of ${formatDate(days[0],{month:"long",day:"numeric"})}</div><div class="section-sub">${formatDate(days[0],{year:"numeric"})} · the review is saved to this ISO week</div></div><span class="mini-badge">Sunday review</span></div></section>
+      <div class="review-grid"><section class="card card-pad"><div class="section-title mb-14">Subject milestones</div><div class="subject-list">${SUBJECTS.map(subject=>`<label class="subject-check"><span>${esc(subject)}</span><select data-week-result="${esc(subject)}" aria-label="${subject} weekly result"><option value="">—</option><option value="MISS" ${w.subjects?.[subject]?.result==="MISS"?"selected":""}>MISS</option><option value="HIT" ${w.subjects?.[subject]?.result==="HIT"?"selected":""}>HIT</option></select></label>`).join("")}</div></section>
+      <section class="card card-pad"><div class="section-title mb-14">Week metrics</div><div class="review-grid"><div class="field"><label>Energy average</label><input class="input" type="number" min="1" max="5" step=".1" value="${esc(w.energy|| (avg===null?"":avg.toFixed(1)))}" placeholder="${avg===null?"—":avg.toFixed(1)}" data-bind="week.energy"></div><div class="field"><label>Top error code</label><select data-bind="week.topCode"><option value="">Select code</option>${CODES.map(c=>`<option value="${c}" ${w.topCode===c?"selected":""}>${c} — ${CODE_NAMES[c]}</option>`).join("")}</select></div><div class="field"><label>H count</label><input class="input" type="number" min="0" value="${esc(w.hCount||0)}" data-bind="week.hCount"></div><div class="field"><label>X count</label><input class="input" type="number" min="0" value="${esc(w.xCount||0)}" data-bind="week.xCount"></div><div class="field"><label>Nights under 7h</label><input class="input" type="number" min="0" max="7" value="${esc(w.shortNights||0)}" data-bind="week.shortNights"></div><div class="field"><label>Workouts done</label><input class="input" type="number" min="0" max="7" value="${esc(w.workouts||0)}" data-bind="week.workouts"></div></div></section>
+      <section class="card card-pad"><div class="field"><label for="worked">One thing that worked</label><textarea id="worked" data-bind="week.worked" placeholder="Keep the useful thing.">${esc(w.worked||"")}</textarea></div><div class="field mt-14"><label for="change">One thing to change</label><textarea id="change" data-bind="week.change" placeholder="Choose one concrete adjustment.">${esc(w.change||"")}</textarea></div></section>
+      <section class="card card-pad"><div class="field"><label for="dial">Dial change for next week (one, or none)</label><input id="dial" class="input" type="text" data-bind="week.dial" value="${esc(w.dial||"")}" placeholder="e.g. Keep current load"></div><div class="divider"></div><div class="grid" style="gap:12px"><label class="check-row"><input type="checkbox" data-bind="week.deload" ${w.deload?"checked":""}> Next week is a deload week</label><label class="check-row"><input type="checkbox" data-bind="week.sync" ${w.sync?"checked":""}> Helper sync done</label></div></section></div>`;
+  }
+  function moduleProgress(id) {const value=state.modules[id]||{};return MODULE_CHECKS.filter(([k])=>value[k]).length;}
+  function renderModules() {
+    const total=MODULES.length*MODULE_CHECKS.length,done=MODULES.reduce((a,[id])=>a+moduleProgress(id),0),pct=Math.round(done/total*100);
+    return `${head("Modules","A 22-module FOM roadmap. Progress is saved locally as you work.",`<span class="mini-badge">${MODULES.length} modules</span>`)}
+      <section class="card overall-progress"><div class="progress-summary"><span><b>${done}</b> of ${total} checkpoints complete</span><b>${pct}%</b></div><div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:var(--amber)"></div></div></section>
+      <div class="module-list">${MODULES.map(([id,title,window])=>{const count=moduleProgress(id),data=state.modules[id]||{};return `<article class="card module-card"><div class="module-top"><div><div class="module-id">${id}</div><div class="module-name">${title}</div><div class="module-week">Planned window · ${window}</div></div><div class="module-progress-wrap">${count}/${MODULE_CHECKS.length}<div class="module-progress"><i style="width:${count/MODULE_CHECKS.length*100}%"></i></div></div></div><div class="module-checks">${MODULE_CHECKS.map(([key,label])=>`<label class="module-check"><input type="checkbox" data-module="${id}" data-module-check="${key}" ${data[key]?"checked":""}>${label}</label>`).join("")}</div></article>`;}).join("")}</div>`;
+  }
+  function renderSettings() {
+    const dates=state.settings.keyDates||[];
+    return `${head("Settings","Your data stays in this browser. Export a backup whenever you like.")}
+      <div class="settings-grid"><section class="card card-pad"><div class="section-title">Plan</div><div class="section-sub">Used to calculate deload weeks.</div><div class="field mt-14"><label for="start-date">Plan start date</label><input class="input" id="start-date" type="date" value="${esc(state.settings.startDate||START_DEFAULT)}" data-setting="startDate"></div><div class="divider"></div><div class="small-text">Current plan: FOM Daily Schedule v2.1 · first day ${formatDate(state.settings.startDate||START_DEFAULT,{weekday:"long",month:"long",day:"numeric",year:"numeric"})}.</div></section>
+      <section class="card card-pad"><div class="section-title">Data portability</div><div class="section-sub">Export or restore all tracker data as JSON.</div><div class="grid mt-14" style="grid-template-columns:1fr 1fr"><button class="btn" data-action="export">↓ Export JSON</button><button class="btn" data-action="import">↑ Import JSON</button></div><input id="import-file" class="sr-only" type="file" accept="application/json,.json" aria-label="Choose tracker JSON to import"><div class="divider"></div><button class="btn danger" data-action="reset">Reset all data</button></section>
+      <section class="card card-pad" style="grid-column:1/-1"><div class="flex-between"><div><div class="section-title">Key dates</div><div class="section-sub">Add exams, forms, and college dates when confirmed.</div></div><button class="btn small" data-action="add-key-date">＋ Add date</button></div>
+        <div id="key-dates">${dates.length?dates.map((x,i)=>`<div class="key-date-row"><input type="date" class="input" value="${esc(x.date)}" data-key-date="${i}" data-key-field="date"><input type="text" class="input" value="${esc(x.title)}" placeholder="Exam, form, college visit…" data-key-date="${i}" data-key-field="title"><button class="btn small ghost" data-remove-key-date="${i}" aria-label="Remove key date">×</button></div>`).join(""):'<div class="empty" style="padding:18px">No key dates added yet.</div>'}</div></section>
+      <section class="card card-pad" style="grid-column:1/-1"><div class="section-title">About your data</div><div class="section-sub">Saved in localStorage on this device only. No account, server, or external service is used. Clearing browser data will remove tracker records.</div></section></div>`;
+  }
+  function renderModal() {
+    const host=$("#overlay");if(!modal){if(host.querySelector(".modal-backdrop"))host.innerHTML="";return;}
+    if(modal.type==="error") {
+      host.innerHTML=`<div class="modal-backdrop" data-backdrop><section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header class="modal-header"><h2 id="modal-title">Add error entry</h2><button class="modal-close" data-action="close-modal" aria-label="Close dialog">×</button></header>
+        <form id="error-form"><div class="modal-body"><div class="review-grid">
+          <div class="field"><label for="err-date">Date</label><input id="err-date" name="date" type="date" value="${esc(selectedDate)}" required></div>
+          <div class="field"><label for="err-subject">Subject</label><select id="err-subject" name="subject">${["FOM","Physics","Chemistry","CS + English"].map(s=>`<option>${s}</option>`).join("")}</select></div>
+          <div class="field"><label for="err-ref">Problem reference</label><input id="err-ref" name="ref" required placeholder="Book / page / problem"></div>
+          <div class="field"><label for="err-mark">Mark</label><select id="err-mark" name="mark"><option value="X">X — incorrect / unsolved</option><option value="H">H — solved with hint</option></select></div>
+          <div class="field"><label for="err-code">Code</label><select id="err-code" name="code">${CODES.map(c=>`<option value="${c}">${c} — ${CODE_NAMES[c]}</option>`).join("")}</select></div>
+          <div class="field"><label for="err-cause">Cause</label><input id="err-cause" name="cause" required placeholder="What caused it?"></div>
+          <div class="field"><label for="err-fix">Fix</label><input id="err-fix" name="fix" required placeholder="What will prevent it?"></div>
+          <div class="field"><label for="err-resolve">Re-solve date</label><input id="err-resolve" name="resolveDate" type="date"></div>
+          <div class="field" style="grid-column:1/-1"><label for="err-result">Re-solve result / note</label><input id="err-result" name="result" placeholder="Optional"></div>
+        </div></div><footer class="modal-footer"><button type="button" class="btn ghost" data-action="close-modal">Cancel</button><button class="btn primary" type="submit">Save entry</button></footer></form></section></div>`;
+      setTimeout(()=>$("#err-ref")?.focus(),0);
+    }
+  }
+  function getPath(path) {
+    if(path.startsWith("daily."))return {root:dayData(),path:path.slice(6)};
+    if(path.startsWith("week."))return {root:reviewData(),path:path.slice(5)};
+    return null;
+  }
+  function setNested(root,path,value) {const parts=path.split(".");let o=root;for(let i=0;i<parts.length-1;i++)o=o[parts[i]] ||= {};o[parts.at(-1)]=value;}
+  function valueOf(el) {if(el.type==="checkbox")return el.checked;if(el.type==="number")return el.value===""?"":Number(el.value);return el.value;}
+  function rerenderIf(page) {if((location.hash||"#today")==="#"+page)render();}
+  document.addEventListener("input",e=>{
+    const el=e.target;
+    if(el.matches("[data-bind]")){const p=getPath(el.dataset.bind);if(p){setNested(p.root,p.path,valueOf(el));save();}}
+    if(el.matches("[data-bind-date]")){const date=el.dataset.bindDate;const d=state.daily[date] ||= {tally:{}};setNested(d,el.dataset.bindKey,valueOf(el));save();}
+    if(el.matches("[data-setting]")){state.settings[el.dataset.setting]=el.value;save();}
+    if(el.matches("[data-key-date]")){const i=Number(el.dataset.keyDate);state.settings.keyDates[i][el.dataset.keyField]=el.value;save();}
+  });
+  document.addEventListener("change",e=>{
+    const el=e.target;
+    if(el.matches("[data-action='selected-date']")){selectedDate=el.value||localDate(new Date());openBlock=null;render();return;}
+    if(el.matches("[data-bind]")){const p=getPath(el.dataset.bind);if(p){setNested(p.root,p.path,valueOf(el));if(el.dataset.bind==="daily.sleep.lights"||el.dataset.bind==="daily.sleep.wake")dayData().sleepLogged=true;save();if(el.type==="checkbox"||el.tagName==="SELECT")render();else if(el.dataset.bind==="daily.sleep.lights"||el.dataset.bind==="daily.sleep.wake")rerenderIf("today");}return;}
+    if(el.matches("[data-bind-date]")){const d=state.daily[el.dataset.bindDate] ||= {tally:{}};setNested(d,el.dataset.bindKey,valueOf(el));save();rerenderIf("errors");return;}
+    if(el.matches("[data-setting]")){state.settings[el.dataset.setting]=el.value||START_DEFAULT;save();render();return;}
+    if(el.matches("[data-key-date]")){const i=Number(el.dataset.keyDate);state.settings.keyDates[i][el.dataset.keyField]=el.value;save();return;}
+    if(el.matches("[data-module-check]")){const id=el.dataset.module,key=el.dataset.moduleCheck;state.modules[id] ||= {};state.modules[id][key]=el.checked;save();render();return;}
+    if(el.matches("[data-week-subject]")){const w=reviewData();w.subjects ||= {};w.subjects[el.dataset.weekSubject] ||= {};w.subjects[el.dataset.weekSubject].hit=el.checked;save();return;}
+    if(el.matches("[data-week-result]")){const w=reviewData();w.subjects ||= {};w.subjects[el.dataset.weekResult] ||= {};w.subjects[el.dataset.weekResult].result=el.value;save();return;}
+  });
+  document.addEventListener("click",e=>{
+    const target=e.target.closest("button,a,[data-open-block],[data-backdrop]");
+    if(!target)return;
+    if(target.matches("[data-mode]")){dayData().mode=target.dataset.mode;save();openBlock=null;if(location.hash!=="#today")location.hash="#today";else render();return;}
+    if(target.matches("[data-open-block]")){const index=Number(target.dataset.blockIndex);openBlock=openBlock===index?null:index;render();if(openBlock!==null)$("#view [data-detail] input")?.focus();return;}
+    if(target.matches("[data-set-status]")){const [key,status]=target.dataset.setStatus.split(":");milestoneData(key).status=status;save();render();return;}
+    if(target.matches("[data-error-tab]")){errorTab=target.dataset.errorTab;render();return;}
+    if(target.matches("[data-action='new-error']")){modal={type:"error"};renderModal();return;}
+    if(target.matches("[data-action='close-modal']")||target.matches("[data-backdrop]")&&e.target===target){modal=null;renderModal();return;}
+    if(target.matches("[data-delete-error]")){state.errors=state.errors.filter(x=>x.id!==target.dataset.deleteError);save();render();toast("Error entry removed.");return;}
+    if(target.matches("[data-action='export']")){exportData();return;}
+    if(target.matches("[data-action='import']")){$("#import-file").click();return;}
+    if(target.matches("[data-action='reset']")){if(confirm("Reset all tracker data on this device? This cannot be undone. Export a backup first if you need one.")){state=defaults();save();selectedDate=localDate(new Date());render();toast("Tracker data reset.");}return;}
+    if(target.matches("[data-action='add-key-date']")){state.settings.keyDates ||= [];state.settings.keyDates.push({date:selectedDate,title:""});save();render();$$("[data-key-date]").at(-1)?.focus();return;}
+    if(target.matches("[data-remove-key-date]")){state.settings.keyDates.splice(Number(target.dataset.removeKeyDate),1);save();render();return;}
+    if(target.matches("[data-backdrop]")&&modal){modal=null;renderModal();}
+  });
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"&&modal){modal=null;renderModal();return;}
+    if(e.key==="Tab"&&modal){const controls=$$(".modal button:not([disabled]),.modal input:not([disabled]),.modal select:not([disabled]),.modal textarea:not([disabled])"),first=controls[0],last=controls.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}return;}
+    if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-open-block]")){e.preventDefault();e.target.click();}
+  });
+  document.addEventListener("submit",e=>{
+    if(e.target.id!=="error-form")return;e.preventDefault();
+    const form=new FormData(e.target),entry={id:crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random()}`,date:form.get("date"),subject:form.get("subject"),ref:form.get("ref").trim(),mark:form.get("mark"),code:form.get("code"),cause:form.get("cause").trim(),fix:form.get("fix").trim(),resolveDate:form.get("resolveDate"),result:form.get("result").trim()};
+    state.errors.push(entry);save();modal=null;errorTab="entries";render();toast("Error entry saved.");
+  });
+  document.addEventListener("change",async e=>{
+    if(e.target.id!=="import-file")return;
+    const file=e.target.files?.[0];if(!file)return;
+    try {const incoming=JSON.parse(await file.text());if(!incoming||typeof incoming!=="object"||Array.isArray(incoming)||!incoming.settings||typeof incoming.settings!=="object"||Array.isArray(incoming.settings)||!incoming.daily||typeof incoming.daily!=="object"||Array.isArray(incoming.daily)||!incoming.modules||typeof incoming.modules!=="object"||Array.isArray(incoming.modules)||!Array.isArray(incoming.errors)||(incoming.weeks!=null&&(typeof incoming.weeks!=="object"||Array.isArray(incoming.weeks))))throw new Error("This file is not a valid FOM tracker backup.");
+      if(confirm("Replace all current tracker data with this backup?")){state={settings:incoming.settings,daily:incoming.daily,modules:incoming.modules,errors:incoming.errors,weeks:incoming.weeks||{}};save();render();toast("Backup imported.");}}
+    catch(error){console.error("Could not import tracker backup.",error);alert(`Import failed: ${error.message}`);}finally{e.target.value="";}
+  });
+  function exportData() {const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=`fom-study-tracker-${localDate(new Date())}.json`;a.click();URL.revokeObjectURL(url);toast("Tracker data exported.");}
+  window.addEventListener("hashchange",()=>{modal=null;render();});
+  render();setInterval(updateTop,1000);
+})();
+</script>
+</body>
+</html>
