@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#12171d">
+    <meta
+      name="description"
+      content="An offline-first daily schedule, completion tracker, and personal energy dashboard."
+    >
+    <title>FOM Daily Schedule | Operations Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="schedule-data.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <a class="brand" href="#overview" aria-label="FOM Operations home">
+          <span class="brand-mark" aria-hidden="true">F</span>
+          <span class="brand-copy">
+            <strong>FOM</strong>
+            <span>DAILY OPERATIONS</span>
+          </span>
+        </a>
+
+        <nav class="primary-nav">
+          <a class="nav-link is-active" href="#overview" aria-current="page">
+            <span class="nav-icon" aria-hidden="true">01</span> Overview
+          </a>
+          <a class="nav-link" href="#schedule">
+            <span class="nav-icon" aria-hidden="true">02</span> Daily schedule
+          </a>
+          <a class="nav-link" href="#daily-log">
+            <span class="nav-icon" aria-hidden="true">03</span> Daily log
+          </a>
+          <a class="nav-link" href="#analytics">
+            <span class="nav-icon" aria-hidden="true">04</span> Analytics
+          </a>
+          <a class="nav-link" href="#settings">
+            <span class="nav-icon" aria-hidden="true">05</span> Settings &amp; data
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <span class="system-indicator" aria-hidden="true"></span>
+          <span>LOCAL MODE <strong>· OFFLINE READY</strong></span>
+        </div>
+      </aside>
+
+      <main class="main-content" id="overview">
+        <header class="topbar">
+          <div class="page-heading">
+            <p class="eyebrow">PERSONAL OPERATIONS / DAILY TRACKING</p>
+            <h1>Daily Operations</h1>
+          </div>
+          <div class="today-meta">
+            <span class="status-chip" id="today-mode-chip">MODE NOT SET</span>
+            <time id="today-date" datetime="">Loading date</time>
+          </div>
+        </header>
+
+        <section class="overview-grid" aria-label="Current day overview">
+          <article class="panel mode-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">MORNING CHECK</p>
+                <h2>Set today’s operating mode</h2>
+              </div>
+              <span class="step-index">01</span>
+            </div>
+            <p class="supporting-copy">
+              Choose a sustainable load before starting. The schedule times remain fixed.
+            </p>
+            <label class="field-label" for="day-mode">Day mode</label>
+            <select id="day-mode" name="dayMode">
+              <option value="">Select a mode</option>
+              <option value="full-capacity">Full Capacity</option>
+              <option value="modified-load">Modified Load</option>
+              <option value="recovery-plan">Recovery Plan</option>
+              <option value="essential-plan">Essential Plan</option>
+            </select>
+            <div class="mode-guidance" id="mode-guidance" aria-live="polite">
+              Your selected mode will be saved with today’s log.
+            </div>
+          </article>
+
+          <article class="panel now-panel" aria-live="polite">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">LIVE SCHEDULE</p>
+                <h2>Now / Next</h2>
+              </div>
+              <span class="live-indicator"><span aria-hidden="true"></span> LOCAL TIME</span>
+            </div>
+            <div class="now-next-content" id="now-next-content">
+              <div class="now-next-item">
+                <span class="item-kicker">CURRENT BLOCK</span>
+                <strong id="current-block-name">Schedule loading</strong>
+                <span id="current-block-time">—</span>
+              </div>
+              <div class="now-next-divider" aria-hidden="true"></div>
+              <div class="now-next-item">
+                <span class="item-kicker">UP NEXT</span>
+                <strong id="next-block-name">—</strong>
+                <span id="next-block-time">—</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel progress-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">TODAY’S EXECUTION</p>
+                <h2>Schedule progress</h2>
+              </div>
+              <span class="step-index">02</span>
+            </div>
+            <div class="progress-summary">
+              <strong id="day-progress-count">0 / 0</strong>
+              <span id="day-progress-label">blocks completed</span>
+            </div>
+            <progress id="day-progress" max="100" value="0">0%</progress>
+            <p class="supporting-copy" id="day-progress-detail">Completion updates as you log each block.</p>
+          </article>
+
+          <article class="panel burnout-panel" aria-live="polite">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">CAPACITY INDICATOR</p>
+                <h2>Current recovery zone</h2>
+              </div>
+              <span class="signal-icon" aria-hidden="true">!</span>
+            </div>
+            <div class="burnout-status" id="burnout-status" data-zone="unrated">
+              <span class="burnout-dot" aria-hidden="true"></span>
+              <strong id="burnout-zone-name">Awaiting daily scores</strong>
+            </div>
+            <p class="supporting-copy" id="burnout-zone-detail">
+              Complete your check-in to view the capacity indicator.
+            </p>
+          </article>
+        </section>
+
+        <section class="section-block" id="schedule" aria-labelledby="schedule-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">FIXED DAILY TEMPLATE</p>
+              <h2 id="schedule-heading">Schedule &amp; completion</h2>
+            </div>
+            <div class="template-meta">
+              <span class="status-chip" id="template-name">DETECTING TEMPLATE</span>
+              <span class="muted-text" id="template-summary">Times are read-only</span>
+            </div>
+          </div>
+          <article class="mode-plan-panel" id="mode-plan-panel" aria-live="polite">
+            <div class="mode-plan-header">
+              <div>
+                <p class="eyebrow">ACTIVE MODE PLAN</p>
+                <h3 id="mode-plan-title">Choose a day mode</h3>
+              </div>
+              <span class="mode-plan-target" id="mode-plan-target">The schedule is shown at its fixed times.</span>
+            </div>
+            <p class="mode-plan-summary" id="mode-plan-summary">
+              Select a mode above to show its specific plan in the schedule below.
+            </p>
+            <ul class="mode-plan-instructions" id="mode-plan-instructions">
+              <li>Changing modes updates the plan and block guidance without changing fixed times.</li>
+            </ul>
+          </article>
+          <div class="schedule-list" id="schedule-list" aria-live="polite">
+            <p class="empty-state">Loading your fixed schedule…</p>
+          </div>
+        </section>
+
+        <section class="section-block" id="daily-log" aria-labelledby="daily-log-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">DAILY RECORD</p>
+              <h2 id="daily-log-heading">Check-in &amp; shutdown</h2>
+            </div>
+            <span class="muted-text">Saved automatically on this device</span>
+          </div>
+
+          <div class="log-grid">
+            <article class="panel log-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">WELLBEING CHECK-IN</p>
+                  <h3>Daily scores</h3>
+                </div>
+              </div>
+              <div class="score-grid">
+                <label class="score-field" for="score-sleep-quality">
+                  <span>Sleep quality</span>
+                  <select id="score-sleep-quality" name="sleepQuality" data-score="sleepQuality">
+                    <option value="">—</option>
+                    <option value="1">1 · Low</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · High</option>
+                  </select>
+                </label>
+                <label class="score-field" for="score-energy">
+                  <span>Energy</span>
+                  <select id="score-energy" name="energy" data-score="energy">
+                    <option value="">—</option>
+                    <option value="1">1 · Low</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · High</option>
+                  </select>
+                </label>
+                <label class="score-field" for="score-mood">
+                  <span>Mood</span>
+                  <select id="score-mood" name="mood" data-score="mood">
+                    <option value="">—</option>
+                    <option value="1">1 · Low</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · High</option>
+                  </select>
+                </label>
+                <label class="score-field" for="score-focus">
+                  <span>Focus</span>
+                  <select id="score-focus" name="focus" data-score="focus">
+                    <option value="">—</option>
+                    <option value="1">1 · Low</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · High</option>
+                  </select>
+                </label>
+                <label class="score-field" for="score-motivation">
+                  <span>Motivation</span>
+                  <select id="score-motivation" name="motivation" data-score="motivation">
+                    <option value="">—</option>
+                    <option value="1">1 · Low</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · High</option>
+                  </select>
+                </label>
+              </div>
+
+              <div class="subsection-heading">
+                <h4>Sleepiness observations</h4>
+                <span class="muted-text">1 alert · 5 struggling to stay awake</span>
+              </div>
+              <div class="sleepiness-grid">
+                <label class="score-field" for="sleepiness-1105">
+                  <span>11:05</span>
+                  <select id="sleepiness-1105" name="sleepiness1105" data-sleepiness="11:05">
+                    <option value="">—</option>
+                    <option value="1">1 · Alert</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · Very sleepy</option>
+                  </select>
+                </label>
+                <label class="score-field" for="sleepiness-1525">
+                  <span>15:25</span>
+                  <select id="sleepiness-1525" name="sleepiness1525" data-sleepiness="15:25">
+                    <option value="">—</option>
+                    <option value="1">1 · Alert</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · Very sleepy</option>
+                  </select>
+                </label>
+                <label class="score-field" for="sleepiness-1645">
+                  <span>16:45</span>
+                  <select id="sleepiness-1645" name="sleepiness1645" data-sleepiness="16:45">
+                    <option value="">—</option>
+                    <option value="1">1 · Alert</option><option value="2">2</option>
+                    <option value="3">3</option><option value="4">4</option>
+                    <option value="5">5 · Very sleepy</option>
+                  </select>
+                </label>
+              </div>
+            </article>
+
+            <article class="panel log-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">20:45 SHUTDOWN</p>
+                  <h3>FOM-4 &amp; daily review</h3>
+                </div>
+                <span class="step-index">03</span>
+              </div>
+              <div class="tally-grid">
+                <label class="number-field" for="fom4-flagged">
+                  <span>Flagged</span>
+                  <input id="fom4-flagged" name="flagged" type="number" min="0" step="1" inputmode="numeric">
+                </label>
+                <label class="number-field" for="fom4-corrected">
+                  <span>Corrected</span>
+                  <input id="fom4-corrected" name="corrected" type="number" min="0" step="1" inputmode="numeric">
+                </label>
+                <label class="number-field" for="fom4-doubt-log">
+                  <span>Doubt log</span>
+                  <input id="fom4-doubt-log" name="doubtLog" type="number" min="0" step="1" inputmode="numeric">
+                </label>
+              </div>
+
+              <fieldset class="error-code-fieldset">
+                <legend>Error codes observed</legend>
+                <div class="error-code-grid">
+                  <label><input type="checkbox" name="errorCodes" value="C"><span><b>C</b> Concept</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="T"><span><b>T</b> Technique</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="A"><span><b>A</b> Algebra</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="P"><span><b>P</b> Proof</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="M"><span><b>M</b> Misread</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="S"><span><b>S</b> Speed</span></label>
+                  <label><input type="checkbox" name="errorCodes" value="D"><span><b>D</b> Didn’t try</span></label>
+                </div>
+              </fieldset>
+
+              <div class="shutdown-fields">
+                <label class="field-label" for="unfinished-items">Unfinished items</label>
+                <textarea id="unfinished-items" name="unfinishedItems" rows="2" placeholder="Carry forward only what matters…"></textarea>
+                <label class="field-label" for="hardest-minutes">Hardest 10 minutes</label>
+                <textarea id="hardest-minutes" name="hardestMinutes" rows="2" placeholder="What made that stretch difficult?"></textarea>
+              </div>
+              <div class="shutdown-toggle" role="group" aria-labelledby="shutdown-status-label">
+                <span id="shutdown-status-label" class="field-label">Formal shutdown result</span>
+                <button type="button" class="result-button" data-shutdown-result="hit" aria-pressed="false">HIT</button>
+                <button type="button" class="result-button" data-shutdown-result="miss" aria-pressed="false">MISS</button>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block" id="analytics" aria-labelledby="analytics-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">TREND REVIEW</p>
+              <h2 id="analytics-heading">Analytics &amp; weekly review</h2>
+            </div>
+            <span class="muted-text">Based on saved daily records</span>
+          </div>
+
+          <div class="analytics-grid">
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">DAILY SCORES / LAST 14 DAYS</p>
+                  <h3>Energy trend</h3>
+                </div>
+                <span class="chart-legend"><i class="legend-swatch energy-swatch"></i>Energy</span>
+              </div>
+              <div class="chart-frame">
+                <svg id="energy-chart" class="trend-chart" role="img" aria-label="Energy score trend over the last 14 days" viewBox="0 0 640 220" preserveAspectRatio="none">
+                  <text x="50%" y="50%" text-anchor="middle">Energy observations will appear here</text>
+                </svg>
+              </div>
+            </article>
+
+            <article class="panel chart-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">OBSERVATIONS / LAST 14 DAYS</p>
+                  <h3>Sleepiness trend</h3>
+                </div>
+                <span class="chart-legend"><i class="legend-swatch sleepiness-swatch"></i>Sleepiness</span>
+              </div>
+              <div class="chart-frame">
+                <svg id="sleepiness-chart" class="trend-chart" role="img" aria-label="Sleepiness score trend over the last 14 days" viewBox="0 0 640 220" preserveAspectRatio="none">
+                  <text x="50%" y="50%" text-anchor="middle">Sleepiness observations will appear here</text>
+                </svg>
+              </div>
+            </article>
+
+            <article class="panel table-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">WEEKLY EXECUTION</p>
+                  <h3>HIT / MISS rate</h3>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th scope="col">Week of</th><th scope="col">HIT</th><th scope="col">MISS</th><th scope="col">Rate</th></tr></thead>
+                  <tbody id="weekly-hit-miss-body">
+                    <tr><td colspan="4" class="table-empty">Weekly results will appear as you log them.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="panel table-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">ERROR REVIEW</p>
+                  <h3>Top error codes</h3>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th scope="col">Code</th><th scope="col">Type</th><th scope="col">Count</th></tr></thead>
+                  <tbody id="top-error-codes-body">
+                    <tr><td colspan="3" class="table-empty">Error patterns will appear as you log them.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </article>
+
+            <article class="panel module-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">CURRICULUM TRACKING</p>
+                  <h3>Module completion</h3>
+                </div>
+              </div>
+              <div id="module-progress-list" class="module-progress-list">
+                <p class="empty-state">Module progress is stored with your daily records.</p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section-block settings-section" id="settings" aria-labelledby="settings-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">LOCAL DATA CONTROL</p>
+              <h2 id="settings-heading">Settings &amp; backup</h2>
+            </div>
+          </div>
+          <div class="panel settings-panel">
+            <div>
+              <h3>Backup your records</h3>
+              <p class="supporting-copy">
+                Export includes schedule configuration and your saved logs. Keep a backup before moving browsers or devices.
+              </p>
+            </div>
+            <div class="backup-actions">
+              <button type="button" class="button button-primary" id="export-backup">Export Backup</button>
+              <label class="button button-secondary" for="import-backup">Import Backup</label>
+              <input id="import-backup" type="file" accept="application/json,.json" hidden>
+            </div>
+            <p class="form-feedback" id="backup-feedback" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <footer class="page-footer">
+          <span>FOM DAILY SCHEDULE <strong>v2.1</strong></span>
+          <span>Fixed schedule · Local records · No reminders</span>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>
